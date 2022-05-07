@@ -10,7 +10,7 @@ export class JogadoresService {
   private readonly logger = new Logger(JogadoresService.name);
 
   async criarAtualizarJogador(criaJogadorDto: CriarJogadorDto): Promise<void> {
-    await this.criar(criaJogadorDto);
+    this.criar(criaJogadorDto);
   }
   private criar(criaJogadorDto: CriarJogadorDto): void {
     const { nome, telefoneCelular, email } = criaJogadorDto;
