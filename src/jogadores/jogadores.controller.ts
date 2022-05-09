@@ -13,11 +13,13 @@ export class JogadoresController {
   }
 
   @Get()
-  async consultarJogadores(@Query('email') email: string): Promise<Jogador[]> {
+  async consultarJogadores(
+    @Query('email') email: string,
+  ): Promise<Jogador[] | Jogador> {
     if (email) {
-      this.jogadoresService.consultarJogadorPeloEmail(email);
+      return await this.jogadoresService.consultarJogadorPeloEmail(email);
     } else {
-      return this.jogadoresService.consultarTodosJogadores();
+      return await this.jogadoresService.consultarTodosJogadores();
     }
   }
 }
