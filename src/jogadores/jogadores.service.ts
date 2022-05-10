@@ -46,12 +46,15 @@ export class JogadoresService {
   }
 
   async deletarJogador(email): Promise<void> {
+    return await this.jogadorModel.remove({ email }).exec();
+    /*
     const jogadorEncontrado = await this.jogadores.find(
       (jogador) => jogador.email === email,
     );
     this.jogadores = this.jogadores.filter(
       (jogador) => jogador.email !== jogadorEncontrado.email,
     );
+    */
   }
 
   private async criar(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
