@@ -18,9 +18,11 @@ export class JogadoresService {
   async criarAtualizarJogador(criaJogadorDto: CriarJogadorDto): Promise<void> {
     const { email } = criaJogadorDto;
 
-    const jogadorEncontrado = await this.jogadores.find(
-      (jogador) => jogador.email === email,
-    );
+    // const jogadorEncontrado = await this.jogadores.find(
+    //   (jogador) => jogador.email === email,
+    // );
+
+    const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
 
     if (jogadorEncontrado) {
       this.atualizar(jogadorEncontrado, criaJogadorDto);
