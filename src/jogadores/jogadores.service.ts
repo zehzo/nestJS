@@ -1,7 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
-import { v4 as uuidv4 } from 'uuid';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -54,8 +53,12 @@ export class JogadoresService {
     );
   }
 
-  private criar(criaJogadorDto: CriarJogadorDto): void {
-    const { nome, telefoneCelular, email } = criaJogadorDto;
+  private async criar(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
+    const jogadorCriado = new this.jogadorModel(criaJogadorDto);
+
+    return await jogadorCriado.save();
+
+    /* const { nome, telefoneCelular, email } = criaJogadorDto;
 
     const jogador: Jogador = {
       _id: uuidv4(),
@@ -69,7 +72,7 @@ export class JogadoresService {
 
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
 
-    this.jogadores.push(jogador);
+    this.jogadores.push(jogador);*/
   }
 
   private atualizar(
