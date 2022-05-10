@@ -24,7 +24,7 @@ export class JogadoresService {
     const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
 
     if (jogadorEncontrado) {
-      this.atualizar(jogadorEncontrado, criaJogadorDto);
+      this.atualizar(criaJogadorDto);
     } else {
       this.criar(criaJogadorDto);
     }
@@ -75,12 +75,17 @@ export class JogadoresService {
     this.jogadores.push(jogador);*/
   }
 
-  private atualizar(
-    jogadorEncontrado: Jogador,
-    criarJogadorDto: CriarJogadorDto,
-  ): void {
+  private async atualizar(criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
+    return await this.jogadorModel
+      .findOneAndUpdate(
+        { email: criarJogadorDto.email },
+        { $set: criarJogadorDto },
+      )
+      .exec();
+    /*
     const { nome } = criarJogadorDto;
 
     jogadorEncontrado.nome = nome;
+    */
   }
 }
